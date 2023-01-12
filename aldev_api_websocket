@@ -1,0 +1,98 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": false,
+        "slowMo": 200
+    });
+
+    const page = await browser.newPage();
+    const alpaca_page = await browser.newPage();
+
+    await page.goto('https://dev-api.alpaca.kz/admin/login')
+    await page.type('[type=text]', 'admin@alpaca.com');
+    await page.type('[type=password]', 'cDtPNw7l');
+    await page.keyboard.press('Enter')
+    await page.waitForNavigation()
+    console.log('in admin panel')
+    await page.waitForSelector('body > div.app-container > div.row.content-container > nav > div > div > button')
+    await page.click('body > div.app-container > div.row.content-container > nav > div > div > button')
+    await page.click('[href="#15-dropdown-element"]')
+    await page.click('[href="https://dev-api.alpaca.kz/admin/products"]')
+    await page.waitForSelector('body > div.app-container > div.row.content-container > div.container-fluid > div > div:nth-child(1) > a.btn.btn-success.btn-add-new')
+    await page.click('body > div.app-container > div.row.content-container > div.container-fluid > div > div:nth-child(1) > a.btn.btn-success.btn-add-new')
+    console.log('start to create an item')
+    await page.waitForSelector('#media_picker_images > div > div:nth-child(2) > div > div')
+    await page.click('#media_picker_images > div > div:nth-child(2) > div > div')
+    const [fileChooser] = await Promise.all([
+        page.waitForFileChooser(),
+        page.click('#upload')
+    ]);
+    await fileChooser.accept(['C:/Users/user/Documents/fio.jpg']);
+    await page.waitForSelector('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(1) > span > span.selection > span')
+    await page.click('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(1) > span > span.selection > span')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Test Item')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Test Brand')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Test Model')
+    await page.type('[name=price]', '5000')
+    await page.waitForSelector('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(18) > span > span.selection')
+    await page.click('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(18) > span > span.selection')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+
+    console.log('item is ready')
+
+    await alpaca_page.authenticate({username:'rocketman', password:'EU*xHXZ6SCJ^U^'});
+    await alpaca_page.goto('https://dev.alpaca.kz')    
+    await alpaca_page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await alpaca_page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await alpaca_page.waitForNavigation();
+    await alpaca_page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await alpaca_page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('item is add to cart')
+
+    await page.waitForSelector('#dataTable > tbody > tr:nth-child(1)')
+    await page.click('#dataTable > tbody > tr:nth-child(1)')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+
+    await page.waitForSelector('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(18) > span > span.selection')
+    await page.click('body > div.app-container > div.row.content-container > div.container-fluid > div > div.page-content.edit-add.container-fluid > div > div > div > form.form-edit-add > div.panel-body > div:nth-child(18) > span > span.selection')
+    await page.keyboard.press('ArrowUp')
+    await page.keyboard.press('ArrowUp')
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+    
+    console.log('status changed');
+    
+    await alpaca_page.screenshot({"path": "Status_change.png"});
+
+    await page.waitForSelector('#dataTable > tbody > tr:nth-child(1)')
+    await page.click('#dataTable > tbody > tr:nth-child(1)')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#delete_form > input.btn.btn-danger.pull-right.delete-confirm')
+    await page.click('#delete_form > input.btn.btn-danger.pull-right.delete-confirm')
+    console.log('item deleted');
+    
+    await alpaca_page.screenshot({"path": "Item_delete.png"});
+
+    browser.close()
+
+    console.log('test is passed successfull')
+
+})();
