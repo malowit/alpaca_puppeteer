@@ -11,7 +11,7 @@ const Puppeteer = require('puppeteer');
     const alpaca_page = await browser.newPage();
 
     await page.goto('https://dev-api.alpaca.kz/admin/login')
-    //enter emailawait
+    //enter email
     //enter password
     await page.keyboard.press('Enter')
     await page.waitForNavigation()
