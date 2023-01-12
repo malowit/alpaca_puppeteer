@@ -1,0 +1,41 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": false,
+        "slowMo": 100
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto("https://alpaca.kz/#idea");
+    console.log('Start test')
+
+    await page.waitForSelector('#__layout > div > div.idea-modal > div > form > div.idea-modal__btn-wrap > button')
+    await page.click('#__layout > div > div.idea-modal > div > form > div.idea-modal__btn-wrap > button')
+    console.log('error messages: ok')
+
+    const [fileChooser] = await Promise.all([
+        page.waitForFileChooser(),
+        await page.waitForSelector('#__layout > div > div.idea-modal > div > form > div.idea-modal__upload-file'),
+        await page.click('#__layout > div > div.idea-modal > div > form > div.idea-modal__upload-file')
+    ]);
+    await fileChooser.accept(['C:/Users/user/Documents/fio.jpg']);
+    console.log('image load: ok')
+
+    const nameform = await page.$('[class=input]');
+    await nameform.type('Random Name');
+    await page.keyboard.press('Tab');
+    await page.keyboard.type('0001234567');
+    await page.keyboard.press('Tab');
+    await page.keyboard.type('Perfect idea');
+    await page.waitForSelector('#__layout > div > div.idea-modal > div > form > div.idea-modal__btn-wrap > button')
+    await page.click('#__layout > div > div.idea-modal > div > form > div.idea-modal__btn-wrap > button')
+    console.log('fill information: ok')
+    console.log('Test passed succesful')
+
+    browser.close()
+
+    
+})();
