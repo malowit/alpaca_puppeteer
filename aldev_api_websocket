@@ -11,8 +11,8 @@ const Puppeteer = require('puppeteer');
     const alpaca_page = await browser.newPage();
 
     await page.goto('https://dev-api.alpaca.kz/admin/login')
-    await page.type('[type=text]', 'admin@alpaca.com');
-    await page.type('[type=password]', 'cDtPNw7l');
+    //enter emailawait
+    //enter password
     await page.keyboard.press('Enter')
     await page.waitForNavigation()
     console.log('in admin panel')
