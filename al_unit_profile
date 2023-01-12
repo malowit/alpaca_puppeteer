@@ -1,0 +1,98 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": false,
+        "slowMo": 200
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto("https://alpaca.kz/");
+
+    console.log('Test start')
+    console.log('profile data: start')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.favorites.product__favorites > a')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.favorites.product__favorites > a')
+
+    await page.type('[type=tel]', '7789129663');
+    await page.type('[type=password]', 'qwerty123456');
+    await page.keyboard.press('Enter');
+    console.log('login status: ok')
+
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.favorites.product__favorites > a')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.favorites.product__favorites > a')
+    console.log('item is added to favourites')
+
+    await page.waitForSelector('#__layout > div > header > nav > div > div.header__right > div > a > span.desktop')
+    await page.click('#__layout > div > header > nav > div > div.header__right > div > a > span.desktop')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(1)')
+    await page.click('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(1)')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--main.profile-tabs__info > div > section > div.profile-info__btn-wrap > button')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--main.profile-tabs__info > div > section > div.profile-info__btn-wrap > button')
+
+    await page.type('[type=text]', ' ');
+    
+    for (let i = 0; i < ' Тест '.length; i++)
+        await page.keyboard.press('Backspace');
+
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Backspace');
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Backspace');
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--main.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--main.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    console.log('wrong values: ok')
+    await page.type('[type=text]', ' Тест');
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Адрес, 1');
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('malov@rocketfirm.com');
+    await page.keyboard.press('Enter')
+    console.log('First sequence: done')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(2)')
+    await page.click('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(2)')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--main.profile-tabs__info > div > section > section > div > div > div.favorites-card__content-right > div > div.description-right > div.favorites-card__buttons > div > a')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--main.profile-tabs__info > div > section > section > div > div > div.favorites-card__content-right > div > div.description-right > div.favorites-card__buttons > div > a')
+    console.log('item is deleted from favourites')
+    console.log('child sequence start')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(3)')
+    await page.click('#__layout > div > section > div > div > div.profile-tabs__nav > button:nth-child(3)')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids-info__content > button')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids-info__content > button')
+
+    await page.type('[type=text]', 'First Child');
+    await page.click('[name="date"]');
+    await page.click('[class="cell today"]')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--kids.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--kids.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    console.log('first child created')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids > div > div.kid-item_actions > button.kid-item_button.kid-item_button--edit')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids > div > div.kid-item_actions > button.kid-item_button.kid-item_button--edit')
+
+    await page.type('[type=text]', ' Redacted');
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--kids.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__edit--kids.profile-tabs__edit > div > section > div > form > div.button-wrap > button:nth-child(1)')
+    console.log('first child edited')
+
+    await page.waitForSelector('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids > div > div.kid-item_actions > button.kid-item_button.kid-item_button--delete')
+    await page.click('#__layout > div > section > div > div > div.profile-info__block.profile-tabs__wrapper.profile-tabs__info--kids.profile-tabs__info > div > section > div.kids > div > div.kid-item_actions > button.kid-item_button.kid-item_button--delete')
+
+    await page.waitForSelector('#__layout > div > section > div > ul > li:nth-child(1) > a > span')
+    await page.click('#__layout > div > section > div > ul > li:nth-child(1) > a > span')
+    console.log('childs deleted')
+    console.log('Test complete')
+    
+    browser.close()
+
+})();
