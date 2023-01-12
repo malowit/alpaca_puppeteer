@@ -1,0 +1,80 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": false,
+        "slowMo": 250
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto('https://alpaca.kz') 
+    
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > ul > li:nth-child(1) > a > span')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > ul > li:nth-child(1) > a > span')
+    await page.waitForNavigation()
+    console.log('1st item added to cart')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(2) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(2) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > ul > li:nth-child(1) > a > span')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > ul > li:nth-child(1) > a > span')
+    await page.waitForNavigation()
+    console.log('2nd item added to cart')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(3) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(3) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.waitForSelector('#__layout > div > header > div > div > div.common-header__logo > a:nth-child(3) > div > div.common-header__basket-img')
+    await page.click('#__layout > div > header > div > div > div.common-header__logo > a:nth-child(3) > div > div.common-header__basket-img')
+    console.log('3rd item added to cart')
+    console.log('in the cart')
+
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    console.log('button without terms accept pressed')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(1) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(1) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(3) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(3) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__period > div > div > div.multiselect__select')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    console.log('order delatils edited')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__icon')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__icon')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__icon')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.basket-page-top > div > section:nth-child(2) > div > div.basket-item__right > div.basket-item__right-top > div.basket-item__icon')
+    console.log('two items deleted')
+    
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__select')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__select')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Space')
+    console.log('accepted terms and set delivery')
+
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    console.log('test passed successfull')
+
+    browser.close()
+    
+})();
