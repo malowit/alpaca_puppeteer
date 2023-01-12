@@ -1,0 +1,45 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": true,
+        "slowMo": 200
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto("https://alpaca.kz/");
+
+    await page.type('[id=search]', 'bike');
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForNavigation();
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('1. Elastic is ok')
+    
+    await page.type('[id=search]', 'монтессори');
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.search-page.content > div > div:nth-child(4) > div > section > div > section > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > div.search-page.content > div > div:nth-child(4) > div > section > div > section > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('2. Elastic is ok')
+
+    await page.type('[id=search]', 'pituso');
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('3. Elastic is ok')
+
+    await page.waitForSelector('#__layout > div > header > div > div > div.common-header__logo > a:nth-child(3) > div > div.common-header__basket-img')
+    await page.click('#__layout > div > header > div > div > div.common-header__logo > a:nth-child(3) > div > div.common-header__basket-img')
+
+    console.log('Elastic Status: DONE')
+
+    await browser.close()
+
+})();
