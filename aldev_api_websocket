@@ -53,7 +53,7 @@ const Puppeteer = require('puppeteer');
 
     console.log('item is ready')
 
-    await alpaca_page.authenticate({username:'rocketman', password:'EU*xHXZ6SCJ^U^'});
+    //await alpaca_page.authenticate({username:'', password:''});
     await alpaca_page.goto('https://dev.alpaca.kz')    
     await alpaca_page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
     await alpaca_page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
