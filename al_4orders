@@ -1,0 +1,165 @@
+const Puppeteer = require('puppeteer');
+
+(async () => {
+
+    const browser = await Puppeteer.launch({
+        "headless": false,
+        "slowMo": 100
+    });
+
+    const page = await browser.newPage();
+    
+    await page.goto("https://alpaca.kz/");
+    console.log('First Sequence: START. Order without login and delivery.')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForNavigation();
+
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('Item is add to cart')
+
+    await page.click('[class="common-header__basket-mobile"]');
+    
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a');
+    console.log('In the basket')
+    await page.waitForSelector('#orderCheckoutForm > div:nth-child(1) > div > fieldset:nth-child(1) > label > div.input-container > input')
+    await page.click('#orderCheckoutForm > div:nth-child(1) > div > fieldset:nth-child(1) > label > div.input-container > input')
+    await page.keyboard.type('Самовывоз Анонимович')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('1234567890')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Адрес')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('malowit@gmail.com')
+
+    await page.waitForSelector('#orderCheckoutForm > div.rent-form__buttons > button')
+    await page.click('#orderCheckoutForm > div.rent-form__buttons > button')
+
+    //await page.screenshot({"path": "First_Sequence.png"});
+    
+    console.log('First Sequence: DONE. Check mailbox and Voyager.')
+
+    await page.goto("https://alpaca.kz/");
+    console.log('Second Sequence: START. Order without login and with delivery.')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForNavigation();
+
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('Item is add to cart')
+
+    await page.click('[class="common-header__basket-mobile"]');
+    
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__tags > span')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__tags > span')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a');
+    console.log('In the basket')
+    await page.waitForSelector('#orderCheckoutForm > div:nth-child(1) > div > fieldset:nth-child(1) > label > div.input-container > input')
+    await page.click('#orderCheckoutForm > div:nth-child(1) > div > fieldset:nth-child(1) > label > div.input-container > input')
+    await page.keyboard.type('Доставка Анонимовна')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('1234567890')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('Адрес')
+    await page.keyboard.press('Tab')
+    await page.keyboard.type('malowit@gmail.com')
+    await page.click('[name="date"]');
+    await page.click('[class="cell today"]')
+    await page.waitForSelector('#orderCheckoutForm > div:nth-child(1) > div > label.input-wrapper.timeSelectWrap > div.input-container > div > div.multiselect__tags')
+    await page.click('#orderCheckoutForm > div:nth-child(1) > div > label.input-wrapper.timeSelectWrap > div.input-container > div > div.multiselect__tags')
+    await page.keyboard.press('Enter')
+
+    await page.waitForSelector('#orderCheckoutForm > div.rent-form__buttons > button')
+    await page.click('#orderCheckoutForm > div.rent-form__buttons > button')
+
+    //await page.screenshot({"path": "Second_Sequence.png"});
+    
+    console.log('Second Sequence: DONE. Check mailbox and Voyager.')
+
+    await page.goto("https://alpaca.kz")
+    await page.goto("https://alpaca.kz/#login");
+    await page.waitForSelector('#__layout > div > div.login-modal > div > section.login-entry > form > div > fieldset:nth-child(1) > label > div.input-container')
+    await page.click('#__layout > div > div.login-modal > div > section.login-entry > form > div > fieldset:nth-child(1) > label > div.input-container');
+    await page.keyboard.type('7789129663');
+    await page.keyboard.press('Tab');
+    await page.keyboard.type('qwerty123456');
+    await page.keyboard.press('Enter');
+    console.log('login status: ok')
+    await page.waitForNavigation();
+    //await page.screenshot({"path": "Third_Sequence.png"});
+
+    console.log('Third Sequence: START. Order with login and without delivery.')
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForNavigation();
+
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('Item is add to cart')
+
+    await page.click('[class="common-header__basket-mobile"]');
+
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a');
+    console.log('In the basket')
+    await page.waitForSelector('#orderCheckoutForm > div.rent-form__buttons > button')
+    await page.click('#orderCheckoutForm > div.rent-form__buttons > button')
+
+    //await page.screenshot({"path": "Fourth_Sequence.png"});
+    
+    console.log('Third Sequence: DONE. Check mailbox and Voyager.')
+
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > div > div > a > button')
+    await page.click('#__layout > div > div.container.content > div > div > div > div > a > button')
+
+    console.log('Fourth Sequence: START. Order with login and dellivery.')
+
+    await page.waitForSelector('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.click('#__layout > div > section > div:nth-child(2) > section.new-products > div.new-products__products > div > div:nth-child(1) > div.product__right > div:nth-child(2) > div.product__buttons > a > button')
+    await page.waitForNavigation();
+
+    await page.waitForSelector('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    await page.click('#__layout > div > div.product-page.content > div:nth-child(1) > section.product-info > div.product-info__description > div.product-info__button-basket > button')
+    console.log('Item is add to cart')
+
+    await page.click('[class="common-header__basket-mobile"]');
+
+    await page.waitForSelector('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__tags > span')
+    await page.click('#__layout > div > div.container.content > div > div.basket-block > section.application > div > div.rent-form__wrapper > div > div > div.multiselect__tags > span')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__wrapper > label > span')
+    await page.waitForSelector('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a')
+    await page.click('#__layout > div > div.container.content > div > div > section.application > div > div.rent-form__buttons > a');
+    console.log('In the basket')
+    await page.click('[name="date"]');
+    await page.click('[class="cell today"]')
+    await page.waitForSelector('#orderCheckoutForm > div:nth-child(1) > div > label.input-wrapper.timeSelectWrap > div.input-container > div > div.multiselect__tags')
+    await page.click('#orderCheckoutForm > div:nth-child(1) > div > label.input-wrapper.timeSelectWrap > div.input-container > div > div.multiselect__tags')
+    await page.keyboard.press('Enter')
+
+    await page.waitForSelector('#orderCheckoutForm > div.rent-form__buttons > button')
+    await page.click('#orderCheckoutForm > div.rent-form__buttons > button')
+
+    //await page.screenshot({"path": "Fifth_Sequence.png"});
+    
+    console.log('Fourth Sequence: DONE. Check mailbox and Voyager.');
+
+    console.log('All Tests passed successfully. Good bye.');
+
+    browser.close();
+
+})();
